@@ -24,6 +24,7 @@ class Game:
         self.offset_y = 0
 
         self.return_button = Button("Return to Menu", 650, 10, 140, 40, pr.DARKGRAY, pr.YELLOW)
+        self.messages = []
 
     def run(self):
         while not pr.window_should_close():
@@ -62,11 +63,19 @@ class Game:
             for bin_type, bin_rect in self.bins.items():
                 if pr.check_collision_recs(self.dragging_item.rect, bin_rect):
                     if self.dragging_item.type == bin_type:
-                        print(f"Correct! {self.dragging_item.type} item placed in {bin_type} bin.")
+                        message = f"Correct! {self.dragging_item.type} item placed in {bin_type} bin."
                         self.dragging_item.locked = True
                     else:
-                        print(f"Wrong! {self.dragging_item.type} item should not be placed in {bin_type} bin.")
+                        message = f"Wrong! {self.dragging_item.type} item should not be placed in {bin_type} bin."
+                    self.messages.append({"text": message, "alpha": 255, "timer": 0})
             self.dragging_item = None
+
+        for message in self.messages:
+            message["timer"] += 1
+            if message["timer"] > 60:
+                message["alpha"] -= 5
+                if message["alpha"] < 0:
+                    message["alpha"] = 0
 
     def draw(self):
         pr.begin_drawing()
@@ -85,5 +94,9 @@ class Game:
         text = "Drag and drop items into the correct bins"
         text_width = pr.measure_text(text, 20)
         pr.draw_text(text, (800 - text_width) // 2, 20, 20, pr.BLACK)
+
+        for i, message in enumerate(self.messages[-5:]):
+            color = pr.Color(0, 0, 0, message["alpha"])
+            pr.draw_text(message["text"], 10, 60 + i * 20, 20, color)
 
         pr.end_drawing()
