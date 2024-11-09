@@ -42,6 +42,8 @@ class Menu:
         for button in self.buttons:
             button.draw()
 
-        pr.draw_text("Click to select and confirm", 250, 500, 20, pr.BLACK)
+        text = "Click to select and confirm"
+        text_width = pr.measure_text(text, 20)
+        pr.draw_text(text, (800 - text_width) // 2, 500, 20, pr.BLACK)
 
         pr.end_drawing()

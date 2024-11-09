@@ -12,7 +12,10 @@ class Button:
     def draw(self):
         color = self.hover_color if self.is_hovered else self.normal_color
         pr.draw_rectangle_rec(self.rect, color)
-        pr.draw_text(self.text, int(self.rect.x) + 10, int(self.rect.y) + 10, 20, pr.BLACK)
+        text_width = pr.measure_text(self.text, 20)
+        text_x = int(self.rect.x + (self.rect.width - text_width) / 2)
+        text_y = int(self.rect.y + (self.rect.height - 20) / 2)
+        pr.draw_text(self.text, text_x, text_y, 20, pr.BLACK)
 
     def update(self, mouse_pos):
         self.is_hovered = pr.check_collision_point_rec(mouse_pos, self.rect)

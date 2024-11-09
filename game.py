@@ -74,13 +74,16 @@ class Game:
 
         for bin_type, bin_rect in self.bins.items():
             pr.draw_rectangle_rec(bin_rect, pr.DARKGRAY)
-            pr.draw_text(bin_type.capitalize(), int(bin_rect.x) + 20, int(bin_rect.y) + 20, 20, pr.WHITE)
+            text_width = pr.measure_text(bin_type.capitalize(), 20)
+            pr.draw_text(bin_type.capitalize(), int(bin_rect.x + (bin_rect.width - text_width) / 2), int(bin_rect.y + 20), 20, pr.WHITE)
 
         for item in self.items:
             item.draw()
 
         self.return_button.draw()
 
-        pr.draw_text("Drag and drop items into the correct bins", 200, 20, 20, pr.BLACK)
+        text = "Drag and drop items into the correct bins"
+        text_width = pr.measure_text(text, 20)
+        pr.draw_text(text, (800 - text_width) // 2, 20, 20, pr.BLACK)
 
         pr.end_drawing()
