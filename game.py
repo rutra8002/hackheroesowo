@@ -1,6 +1,7 @@
 import pyray as pr
 from item import Item
 from button import Button
+from pause_menu import PauseMenu
 
 class Game:
     def __init__(self):
@@ -23,7 +24,9 @@ class Game:
         self.offset_x = 0
         self.offset_y = 0
 
-        self.return_button = Button("Return to Menu", 650, 10, 140, 40, pr.DARKGRAY, pr.YELLOW)
+        self.pause_button = Button("Pause", 650, 10, 140, 40, pr.DARKGRAY, pr.YELLOW)
+        self.pause_menu = PauseMenu()
+        self.is_paused = False
         self.messages = []
 
     def run(self):
@@ -31,17 +34,24 @@ class Game:
             self.update()
             self.draw()
 
-            if self.return_button.is_clicked:
+            if self.pause_menu.selected_option == "menu":
                 pr.close_window()
                 return "menu"
+            elif self.pause_menu.selected_option == "resume":
+                self.is_paused = False
+                self.pause_menu.selected_option = None
 
         pr.close_window()
 
     def update(self):
         mouse_pos = pr.get_mouse_position()
-        self.return_button.update(mouse_pos)
+        self.pause_button.update(mouse_pos)
 
-        if self.return_button.is_clicked:
+        if self.pause_button.is_clicked:
+            self.is_paused = True
+
+        if self.is_paused:
+            self.pause_menu.update()
             return
 
         mouse_pos.x = int(mouse_pos.x)
@@ -89,7 +99,7 @@ class Game:
         for item in self.items:
             item.draw()
 
-        self.return_button.draw()
+        self.pause_button.draw()
 
         text = "Drag and drop items into the correct bins"
         text_width = pr.measure_text(text, 20)
@@ -98,5 +108,8 @@ class Game:
         for i, message in enumerate(self.messages[-5:]):
             color = pr.Color(0, 0, 0, message["alpha"])
             pr.draw_text(message["text"], 10, 60 + i * 20, 20, color)
+
+        if self.is_paused:
+            self.pause_menu.draw()
 
         pr.end_drawing()
