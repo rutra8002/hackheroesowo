@@ -1,7 +1,7 @@
 import pyray as pr
 
 # Initialize the window
-pr.init_window(800, 600, b"Segregation Game")
+pr.init_window(800, 600, "Segregation Game")
 
 # Set the target FPS
 pr.set_target_fps(60)
@@ -15,9 +15,9 @@ bins = {
 
 # Define items
 items = [
-    {"type": "paper", "rect": pr.Rectangle(100, 100, 50, 50), "color": pr.BLUE},
-    {"type": "plastic", "rect": pr.Rectangle(200, 100, 50, 50), "color": pr.RED},
-    {"type": "glass", "rect": pr.Rectangle(300, 100, 50, 50), "color": pr.GREEN}
+    {"type": "paper", "rect": pr.Rectangle(100, 100, 50, 50), "color": pr.BLUE, "locked": False},
+    {"type": "plastic", "rect": pr.Rectangle(200, 100, 50, 50), "color": pr.RED, "locked": False},
+    {"type": "glass", "rect": pr.Rectangle(300, 100, 50, 50), "color": pr.GREEN, "locked": False}
 ]
 
 # Dragging state
@@ -29,10 +29,11 @@ while not pr.window_should_close():
     mouse_pos = pr.get_mouse_position()
     mouse_pos.x = int(mouse_pos.x)
     mouse_pos.y = int(mouse_pos.y)
+
     # Check for dragging
     if pr.is_mouse_button_pressed(pr.MouseButton.MOUSE_BUTTON_LEFT):
         for item in items:
-            if pr.check_collision_point_rec(mouse_pos, item["rect"]):
+            if not item["locked"] and pr.check_collision_point_rec(mouse_pos, item["rect"]):
                 dragging_item = item
                 offset_x = mouse_pos.x - item["rect"].x
                 offset_y = mouse_pos.y - item["rect"].y
@@ -47,6 +48,7 @@ while not pr.window_should_close():
             if pr.check_collision_recs(dragging_item["rect"], bin_rect):
                 if dragging_item["type"] == bin_type:
                     print(f"Correct! {dragging_item['type']} item placed in {bin_type} bin.")
+                    dragging_item["locked"] = True
                 else:
                     print(f"Wrong! {dragging_item['type']} item should not be placed in {bin_type} bin.")
         dragging_item = None
