@@ -28,10 +28,13 @@ class Menu:
 
     def draw(self):
         pr.begin_drawing()
-        pr.clear_background(pr.RAYWHITE)
+        pr.clear_background(pr.SKYBLUE)
 
         for i, option in enumerate(self.options):
-            color = pr.RED if i == self.selected_option else pr.BLACK
+            color = pr.YELLOW if i == self.selected_option else pr.DARKGRAY
             pr.draw_text(option, 350, 200 + i * 40, 20, color)
+
+        pr.draw_text("Use UP and DOWN arrows to navigate", 200, 500, 20, pr.BLACK)
+        pr.draw_text("Press ENTER to select", 300, 530, 20, pr.BLACK)
 
         pr.end_drawing()

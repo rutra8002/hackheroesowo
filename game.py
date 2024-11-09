@@ -58,13 +58,15 @@ class Game:
 
     def draw(self):
         pr.begin_drawing()
-        pr.clear_background(pr.RAYWHITE)
+        pr.clear_background(pr.LIGHTGRAY)
 
         for bin_type, bin_rect in self.bins.items():
-            pr.draw_rectangle_rec(bin_rect, pr.LIGHTGRAY)
-            pr.draw_text(bin_type.capitalize(), int(bin_rect.x) + 20, int(bin_rect.y) + 20, 20, pr.BLACK)
+            pr.draw_rectangle_rec(bin_rect, pr.DARKGRAY)
+            pr.draw_text(bin_type.capitalize(), int(bin_rect.x) + 20, int(bin_rect.y) + 20, 20, pr.WHITE)
 
         for item in self.items:
             item.draw()
+
+        pr.draw_text("Drag and drop items into the correct bins", 200, 20, 20, pr.BLACK)
 
         pr.end_drawing()
