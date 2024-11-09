@@ -5,9 +5,10 @@ class Menu:
     def __init__(self):
         self.buttons = [
             Button("Segregation Game", 300, 200, 200, 50, pr.DARKGRAY, pr.YELLOW),
-            Button("Another Game", 300, 260, 200, 50, pr.DARKGRAY, pr.YELLOW)
+            Button("Another Game", 300, 260, 200, 50, pr.DARKGRAY, pr.YELLOW),
+            Button("Quit", 300, 320, 200, 50, pr.DARKGRAY, pr.YELLOW)
         ]
-        self.selected_option = 0
+        self.selected_option = None
 
     def run(self):
         pr.init_window(800, 600, "Main Menu")
@@ -17,19 +18,22 @@ class Menu:
             self.update()
             self.draw()
 
-            if any(button.is_clicked for button in self.buttons):
+            if self.selected_option is not None:
                 pr.close_window()
                 return self.selected_option
 
         pr.close_window()
-        return None
+        return "quit"
 
     def update(self):
         mouse_pos = pr.get_mouse_position()
         for i, button in enumerate(self.buttons):
             button.update(mouse_pos)
             if button.is_clicked:
-                self.selected_option = i
+                if button.text == "Quit":
+                    self.selected_option = "quit"
+                else:
+                    self.selected_option = i
 
     def draw(self):
         pr.begin_drawing()

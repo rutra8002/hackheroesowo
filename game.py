@@ -1,5 +1,6 @@
 import pyray as pr
 from item import Item
+from button import Button
 
 class Game:
     def __init__(self):
@@ -22,15 +23,26 @@ class Game:
         self.offset_x = 0
         self.offset_y = 0
 
+        self.return_button = Button("Return to Menu", 650, 10, 140, 40, pr.DARKGRAY, pr.YELLOW)
+
     def run(self):
         while not pr.window_should_close():
             self.update()
             self.draw()
 
+            if self.return_button.is_clicked:
+                pr.close_window()
+                return "menu"
+
         pr.close_window()
 
     def update(self):
         mouse_pos = pr.get_mouse_position()
+        self.return_button.update(mouse_pos)
+
+        if self.return_button.is_clicked:
+            return
+
         mouse_pos.x = int(mouse_pos.x)
         mouse_pos.y = int(mouse_pos.y)
 
@@ -66,6 +78,8 @@ class Game:
 
         for item in self.items:
             item.draw()
+
+        self.return_button.draw()
 
         pr.draw_text("Drag and drop items into the correct bins", 200, 20, 20, pr.BLACK)
 
