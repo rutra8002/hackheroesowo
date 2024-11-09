@@ -4,9 +4,9 @@ from button import Button
 class Menu:
     def __init__(self):
         self.buttons = [
-            Button("Segregation Game", 300, 200, 200, 50, pr.DARKGRAY, pr.YELLOW),
-            Button("Another Game", 300, 260, 200, 50, pr.DARKGRAY, pr.YELLOW),
-            Button("Quit", 300, 320, 200, 50, pr.DARKGRAY, pr.YELLOW)
+            Button("Segregation Game", 300, 200, 200, 50, pr.RED, pr.YELLOW),
+            Button("Another Game", 300, 260, 200, 50, pr.ORANGE, pr.YELLOW),
+            Button("Quit", 300, 320, 200, 50, pr.VIOLET, pr.YELLOW)
         ]
         self.selected_option = None
 
