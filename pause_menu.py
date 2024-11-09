@@ -4,8 +4,8 @@ from button import Button
 class PauseMenu:
     def __init__(self):
         self.buttons = [
-            Button("Resume", 300, 200, 200, 50, pr.GREEN, pr.YELLOW),
-            Button("Return to Menu", 300, 260, 200, 50, pr.RED, pr.YELLOW)
+            Button("Resume", 300, 200, 200, 50, pr.GREEN, pr.YELLOW, pr.BLACK),
+            Button("Return to Menu", 300, 260, 200, 50, pr.RED, pr.YELLOW, pr.BLACK)
         ]
         self.selected_option = None
 

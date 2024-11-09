@@ -24,7 +24,7 @@ class Game:
         self.offset_x = 0
         self.offset_y = 0
 
-        self.pause_button = Button("Pause", 650, 10, 140, 40, pr.DARKGRAY, pr.YELLOW)
+        self.pause_button = Button("| |", 750, 10, 40, 40, pr.DARKGRAY, pr.YELLOW, pr.WHITE)
         self.pause_menu = PauseMenu()
         self.is_paused = False
         self.messages = []
