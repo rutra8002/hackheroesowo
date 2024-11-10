@@ -6,8 +6,8 @@ class Menu:
         self.width = 800
         self.height = 600
         self.buttons = [
-            Button("Segregation Game", 100, 100, 600, 400, pr.RED, pr.YELLOW, pr.BLACK),
-            Button("Another Game", 100, 100, 600, 400, pr.ORANGE, pr.YELLOW, pr.BLACK),
+            Button("Segregation SegregationGame", 100, 100, 600, 400, pr.RED, pr.YELLOW, pr.BLACK),
+            Button("Another SegregationGame", 100, 100, 600, 400, pr.ORANGE, pr.YELLOW, pr.BLACK),
             Button("Quit", 100, 100, 600, 400, pr.VIOLET, pr.YELLOW, pr.BLACK)
         ]
         self.selected_option = None

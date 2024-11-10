@@ -3,9 +3,9 @@ from item import Item
 from button import Button
 from pause_menu import PauseMenu
 
-class Game:
+class SegregationGame:
     def __init__(self):
-        pr.init_window(800, 600, "Segregation Game")
+        pr.init_window(800, 600, "Segregation SegregationGame")
         pr.set_target_fps(60)
 
         self.bins = {

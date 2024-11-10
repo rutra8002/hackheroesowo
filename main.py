@@ -1,5 +1,5 @@
 from menu import Menu
-from game import Game
+from segregation_game import SegregationGame
 
 def main():
     while True:
@@ -9,7 +9,7 @@ def main():
         if selected_option == "quit":
             break
         elif selected_option == 0:
-            game = Game()
+            game = SegregationGame()
             result = game.run()
             if result == "menu":
                 continue
