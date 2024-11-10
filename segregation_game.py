@@ -5,29 +5,40 @@ from pause_menu import PauseMenu
 
 class SegregationGame:
     def __init__(self):
-        pr.init_window(800, 600, "Segregation SegregationGame")
+        pr.set_config_flags(pr.FLAG_WINDOW_RESIZABLE)
+        pr.init_window(800, 600, "Segregation Game")
         pr.set_target_fps(60)
-
-        self.bins = {
-            "paper": pr.Rectangle(100, 500, 150, 80),
-            "plastic": pr.Rectangle(300, 500, 150, 80),
-            "glass": pr.Rectangle(500, 500, 150, 80)
-        }
-
-        self.items = [
-            Item("paper", 100, 100, 50, 50, pr.BLUE),
-            Item("plastic", 200, 100, 50, 50, pr.RED),
-            Item("glass", 300, 100, 50, 50, pr.GREEN)
-        ]
+        self.update_layout()
 
         self.dragging_item = None
         self.offset_x = 0
         self.offset_y = 0
 
-        self.pause_button = Button("| |", 750, 10, 40, 40, pr.DARKGRAY, pr.YELLOW, pr.WHITE)
         self.pause_menu = PauseMenu()
         self.is_paused = False
         self.messages = []
+
+    def update_layout(self):
+        width = pr.get_screen_width()
+        height = pr.get_screen_height()
+        bin_width = int(width * 0.15)
+        bin_height = int(height * 0.1)
+        bin_y = height - bin_height - 20
+
+        self.bins = {
+            "paper": pr.Rectangle(int(width * 0.1), bin_y, bin_width, bin_height),
+            "plastic": pr.Rectangle(int(width * 0.4), bin_y, bin_width, bin_height),
+            "glass": pr.Rectangle(int(width * 0.7), bin_y, bin_width, bin_height)
+        }
+
+        item_size = int(min(width, height) * 0.05)
+        self.items = [
+            Item("paper", int(width * 0.1), int(height * 0.1), item_size, item_size, pr.BLUE),
+            Item("plastic", int(width * 0.3), int(height * 0.1), item_size, item_size, pr.RED),
+            Item("glass", int(width * 0.5), int(height * 0.1), item_size, item_size, pr.GREEN)
+        ]
+
+        self.pause_button = Button("| |", width - 50, 10, 40, 40, pr.DARKGRAY, pr.YELLOW, pr.WHITE)
 
     def run(self):
         while not pr.window_should_close():
@@ -44,6 +55,9 @@ class SegregationGame:
         pr.close_window()
 
     def update(self):
+        if pr.is_window_resized():
+            self.update_layout()
+
         mouse_pos = pr.get_mouse_position()
         self.pause_button.update(mouse_pos)
 
@@ -103,7 +117,7 @@ class SegregationGame:
 
         text = "Drag and drop items into the correct bins"
         text_width = pr.measure_text(text, 20)
-        pr.draw_text(text, (800 - text_width) // 2, 20, 20, pr.BLACK)
+        pr.draw_text(text, (pr.get_screen_width() - text_width) // 2, 20, 20, pr.BLACK)
 
         for i, message in enumerate(self.messages[-5:]):
             color = pr.Color(0, 0, 0, message["alpha"])
