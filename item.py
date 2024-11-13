@@ -14,4 +14,7 @@ class Item:
             scale_y = self.rect.height / self.image.height
             pr.draw_texture_ex(self.image, pr.Vector2(self.rect.x, self.rect.y), 0, scale_x, pr.WHITE)
         else:
-            pr.draw_rectangle_rec(self.rect, self.color)
+            if self.color:
+                pr.draw_rectangle_rec(self.rect, self.color)
+            else:
+                pr.draw_rectangle_rec(self.rect, pr.BROWN)
