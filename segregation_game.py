@@ -34,7 +34,7 @@ class SegregationGame:
         item_size = int(min(width, height) * 0.1)
         self.items = [
             Item("paper", int(width * 0.1), int(height * 0.1), item_size, item_size, image_path="images/paper.png"),
-            Item("plastic", int(width * 0.3), int(height * 0.1), item_size, item_size, color=pr.RED),
+            Item("plastic", int(width * 0.3), int(height * 0.1), item_size, item_size, image_path="images/plastic.png"),
             Item("glass", int(width * 0.5), int(height * 0.1), item_size, item_size, color=pr.GREEN)
         ]
 
