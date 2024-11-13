@@ -32,14 +32,14 @@ class Menu:
         width = pr.get_screen_width()
         height = pr.get_screen_height()
         button_width = int(width * 0.75)
-        button_height = int(height * 0.1)
+        button_height = int(height * 0.6)
         button_x = (width - button_width) // 2
         button_y = int(height * 0.2)
 
         self.buttons = [
             Button("Segregation Game", button_x, button_y, button_width, button_height, pr.RED, pr.YELLOW, pr.BLACK),
-            Button("Another Game", button_x, button_y + button_height + 20, button_width, button_height, pr.ORANGE, pr.YELLOW, pr.BLACK),
-            Button("Quit", button_x, button_y + 2 * (button_height + 20), button_width, button_height, pr.VIOLET, pr.YELLOW, pr.BLACK)
+            Button("Another Game", button_x, button_y, button_width, button_height, pr.ORANGE, pr.YELLOW, pr.BLACK),
+            Button("Quit", button_x, button_y, button_width, button_height, pr.VIOLET, pr.YELLOW, pr.BLACK)
         ]
         self.left_arrow = Button("<", 50, height // 2 - 25, 50, 50, pr.GRAY, pr.DARKGRAY, pr.BLACK)
         self.right_arrow = Button(">", width - 100, height // 2 - 25, 50, 50, pr.GRAY, pr.DARKGRAY, pr.BLACK)
