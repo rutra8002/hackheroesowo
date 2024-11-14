@@ -1,6 +1,6 @@
 import pyray as pr
 from menu import Menu
-from segregation_game import SegregationGame
+from segregation_game import RecyclingSorterGame
 
 def show_intro():
     pr.init_window(800, 600, "Intro")
@@ -29,7 +29,7 @@ def main():
         if selected_option == "quit":
             break
         elif selected_option == 0:
-            game = SegregationGame()
+            game = RecyclingSorterGame()
             result = game.run()
             if result == "menu":
                 continue
