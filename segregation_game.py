@@ -35,7 +35,7 @@ class SegregationGame:
         self.items = [
             Item("paper", int(width * 0.1), int(height * 0.1), item_size, item_size, image_path="images/paper.png"),
             Item("plastic", int(width * 0.3), int(height * 0.1), item_size, item_size, image_path="images/plastic.png"),
-            Item("glass", int(width * 0.5), int(height * 0.1), item_size, item_size, color=pr.GREEN)
+            Item("glass", int(width * 0.5), int(height * 0.1), item_size, item_size, image_path="images/glass.png")
         ]
 
         self.pause_button = Button("| |", width - 50, 10, 40, 40, pr.DARKGRAY, pr.YELLOW, pr.WHITE)
