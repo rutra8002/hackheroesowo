@@ -3,10 +3,10 @@ from item import Item
 from button import Button
 from pause_menu import PauseMenu
 
-class SegregationGame:
+class RecyclingSorterGame:
     def __init__(self):
         pr.set_config_flags(pr.FLAG_WINDOW_RESIZABLE)
-        pr.init_window(800, 600, "Segregation Game")
+        pr.init_window(800, 600, "Recycling Sorter Game")
         pr.set_target_fps(60)
         self.update_layout()
 
