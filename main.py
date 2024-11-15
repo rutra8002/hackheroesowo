@@ -10,7 +10,7 @@ def show_intro():
     while not pr.window_should_close() and alpha > 5:
         pr.begin_drawing()
         pr.clear_background(pr.GREEN)
-        text = "Help our climate!"
+        text = "Save our climate!"
         text_width = pr.measure_text(text, 40)
         pr.draw_text(text, (pr.get_screen_width() - text_width) // 2, pr.get_screen_height() // 2, 40, pr.Color(0, 0, 0, alpha))
         pr.end_drawing()

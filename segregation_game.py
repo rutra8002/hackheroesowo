@@ -87,16 +87,19 @@ class RecyclingSorterGame:
             for bin_type, bin_rect in self.bins.items():
                 if pr.check_collision_recs(self.dragging_item.rect, bin_rect):
                     if self.dragging_item.type == bin_type:
-                        message = {"text": "CORRECT", "color": pr.GREEN, "alpha": 255, "timer": 0}
+                        message = {"text": "CORRECT", "color": pr.GREEN, "alpha": 255, "timer": 0, "duration": 60}
                         self.dragging_item.locked = True
                     else:
-                        message = {"text": "WRONG", "color": pr.RED, "alpha": 255, "timer": 0}
+                        message = {"text": "WRONG", "color": pr.RED, "alpha": 255, "timer": 0, "duration": 60}
                     self.messages.append(message)
             self.dragging_item = None
 
+        if all(item.locked for item in self.items) and not any(msg["text"] == "COMPLETED" for msg in self.messages):
+            self.messages.append({"text": "COMPLETED", "color": pr.YELLOW, "alpha": 255, "timer": 0, "duration": 180})
+
         for message in self.messages:
             message["timer"] += 1
-            if message["timer"] > 60:
+            if message["timer"] > message["duration"]:
                 message["alpha"] -= 5
                 if message["alpha"] < 0:
                     message["alpha"] = 0
@@ -123,8 +126,15 @@ class RecyclingSorterGame:
         for message in self.messages[-5:]:
             color = pr.Color(message["color"][0], message["color"][1], message["color"][2], message["alpha"])
             text_width = pr.measure_text(message["text"], 40)
-            pr.draw_text(message["text"], (pr.get_screen_width() - text_width) // 2, (pr.get_screen_height() - 40) // 2,
-                         40, color)
+            text_height = 40
+            text_x = (pr.get_screen_width() - text_width) // 2
+            text_y = (pr.get_screen_height() - text_height) // 2
+
+            rect_color = pr.Color(50, 50, 50, message["alpha"])
+            pr.draw_rectangle(text_x - 10, text_y - 5, text_width + 20, text_height + 10, rect_color)
+
+            # Draw text
+            pr.draw_text(message["text"], text_x, text_y, 40, color)
 
         if self.is_paused:
             self.pause_menu.draw()
