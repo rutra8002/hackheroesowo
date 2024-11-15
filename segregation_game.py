@@ -87,11 +87,11 @@ class RecyclingSorterGame:
             for bin_type, bin_rect in self.bins.items():
                 if pr.check_collision_recs(self.dragging_item.rect, bin_rect):
                     if self.dragging_item.type == bin_type:
-                        message = f"Correct! {self.dragging_item.type} item placed in {bin_type} bin."
+                        message = {"text": "CORRECT", "color": pr.GREEN, "alpha": 255, "timer": 0}
                         self.dragging_item.locked = True
                     else:
-                        message = f"Wrong! {self.dragging_item.type} item should not be placed in {bin_type} bin."
-                    self.messages.append({"text": message, "alpha": 255, "timer": 0})
+                        message = {"text": "WRONG", "color": pr.RED, "alpha": 255, "timer": 0}
+                    self.messages.append(message)
             self.dragging_item = None
 
         for message in self.messages:
@@ -108,7 +108,8 @@ class RecyclingSorterGame:
         for bin_type, bin_rect in self.bins.items():
             pr.draw_rectangle_rec(bin_rect, pr.DARKGRAY)
             text_width = pr.measure_text(bin_type.capitalize(), 20)
-            pr.draw_text(bin_type.capitalize(), int(bin_rect.x + (bin_rect.width - text_width) / 2), int(bin_rect.y + 20), 20, pr.WHITE)
+            pr.draw_text(bin_type.capitalize(), int(bin_rect.x + (bin_rect.width - text_width) / 2),
+                         int(bin_rect.y + 20), 20, pr.WHITE)
 
         for item in self.items:
             item.draw()
@@ -119,9 +120,11 @@ class RecyclingSorterGame:
         text_width = pr.measure_text(text, 20)
         pr.draw_text(text, (pr.get_screen_width() - text_width) // 2, 20, 20, pr.BLACK)
 
-        for i, message in enumerate(self.messages[-5:]):
-            color = pr.Color(0, 0, 0, message["alpha"])
-            pr.draw_text(message["text"], 10, 60 + i * 20, 20, color)
+        for message in self.messages[-5:]:
+            color = pr.Color(message["color"][0], message["color"][1], message["color"][2], message["alpha"])
+            text_width = pr.measure_text(message["text"], 40)
+            pr.draw_text(message["text"], (pr.get_screen_width() - text_width) // 2, (pr.get_screen_height() - 40) // 2,
+                         40, color)
 
         if self.is_paused:
             self.pause_menu.draw()
